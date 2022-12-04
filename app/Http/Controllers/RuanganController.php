@@ -16,7 +16,7 @@ class RuanganController extends Controller
     public function index()
     {
         //
-        $datas = DB::select('select * from ruangan');
+        $datas = DB::select('select * from ruangan where soft_delete = 0');
 
         return view('ruangan.index')
             ->with('datas', $datas);
@@ -29,7 +29,7 @@ class RuanganController extends Controller
      */
     public function create()
     {
-        //
+        return view('ruangan.add');
     }
 
     /**
@@ -40,7 +40,22 @@ class RuanganController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_ruangan' => 'required',
+            'lantai' => 'required',
+            'id_pj' => 'required',
+        ]);
+
+        // Menggunakan Query Builder Laravel dan Named Bindings untuk valuesnya
+        DB::insert('INSERT INTO ruangan(nama_ruangan, lantai, id_pj) VALUES (:nama_ruangan, :lantai, :id_pj)',
+        [
+            'nama_ruangan' => $request->nama_ruangan,
+            'lantai' => $request->lantai,
+            'id_pj' => $request->id_pj,
+
+        ]
+        );
+        return redirect()->route('ruangan.index')->with('success', 'Data ruangan berhasil disimpan');
     }
 
     /**
@@ -62,7 +77,9 @@ class RuanganController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = DB::table('ruangan')->where('id_ruangan', $id)->first();
+
+        return view('ruangan.edit')->with('data', $data);
     }
 
     /**
@@ -74,7 +91,19 @@ class RuanganController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nama_ruangan' => 'required',
+            'lantai' => 'required',
+            'id_pj' => 'required',
+        ]);
+        DB::update('UPDATE barang SET nama_ruangan = :nama_ruangan, jumlah = :jumlah, id_pj = :id_pj WHERE id_ruangan = :id',
+        [
+            'nama_ruangan' => $request->nama_ruangan,
+            'lantai' => $request->lantai,
+            'id_pj' => $request->id_pj,
+        ]
+        );
+        return redirect()->route('ruangan.index')->with('success', 'Data ruangan berhasil diubah');
     }
 
     /**
@@ -83,8 +112,16 @@ class RuanganController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        DB::delete('DELETE FROM ruangan WHERE id_ruangan = :id_ruangan', ['id_ruangan' => $id]);
+        return redirect()->route('ruangan.index')->with('success', 'Data ruangan berhasil dihapus');
+    }
+
+    public function soft($id)
+    {
+        DB::update('UPDATE ruangan SET soft_delete = 1 WHERE id_ruangan = :id_ruangan', ['id_ruangan' => $id]);
+
+        return redirect()->route('ruangan.index')->with('success', 'Data ruangan berhasil dihapus');
     }
 }

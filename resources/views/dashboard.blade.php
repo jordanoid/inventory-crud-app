@@ -6,6 +6,14 @@
     </x-slot>
 
     <div class="py-12">
+        <div class="mb-4 px-4">
+            <form class = "row mt-3 ml-3 justify-content-center "action="" method="GET">
+                <h2 class="text-center mb-1">Search</h2>
+                <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
+                <input class="w-50" type="text" name="search"/>
+                <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
+            </form>
+        </div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="py-4 px-4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <table class="table table-bordered">

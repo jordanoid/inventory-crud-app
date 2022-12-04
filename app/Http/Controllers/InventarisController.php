@@ -12,13 +12,30 @@ class InventarisController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $datas = DB::select('select * from inventaris');
+        if ($request->has("search")){
+            $search = $request->input('search');
+            if($search == ""){
+                $datas = DB::select('select * from inventaris');
 
-        return view('dashboard')
-            ->with('datas', $datas);
+                return view('dashboard')
+                    ->with('datas', $datas);
+            }else{
+            $datas = DB::select("select * from inventaris where 
+                                nama_barang like '%{$search}%' or
+                                nama_ruangan like '%{$search}%' or
+                                nama_pj like '%{$search}%' or
+                                nip_pj like '%{$search}%';");
+            return view('dashboard')
+                ->with('datas', $datas);
+            }
+        }else{
+            $datas = DB::select('select * from inventaris');
+
+            return view('dashboard')
+                ->with('datas', $datas);
+        }
     }
 
     /**

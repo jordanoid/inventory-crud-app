@@ -16,7 +16,7 @@ class PJController extends Controller
     public function index()
     {
         //
-        $datas = DB::select('select * from pj');
+        $datas = DB::select('select * from pj where soft_delete = 0');
 
         return view('pj.index')
             ->with('datas', $datas);
@@ -29,7 +29,7 @@ class PJController extends Controller
      */
     public function create()
     {
-        //
+        return view('pj.add');
     }
 
     /**
@@ -40,7 +40,20 @@ class PJController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'nama_pj' => 'required',
+            'nip_pj' => 'required',
+        ]);
+
+        DB::insert('INSERT INTO pj(nama_pj, nip_pj) VALUES (:nama_pj, :nip_pj)',
+        [
+            'nama_pj' => $request->nama_pj,
+            'nip_pj' => $request->nip_pj,
+
+        ]
+        );
+        return redirect()->route('pj.index')->with('success', 'Data PJ berhasil disimpan');
     }
 
     /**
@@ -62,7 +75,8 @@ class PJController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = DB::table('pj')->where('id_pj', $id)->first();
+        return view('pj.edit')->with('data', $data);
     }
 
     /**
@@ -74,7 +88,18 @@ class PJController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nama_pj' => 'required',
+            'nip_pj' => 'required',
+        ]);
+
+        DB::update('UPDATE pj SET nama_pj = :nama_pj, nip_pj = :nip_pj WHERE id_pj = :id',
+        [
+            'nama_pj' => $request->nama_pj,
+            'nip_pj' => $request->nip_pj,
+        ]
+        );
+        return redirect()->route('pj.index')->with('success', 'Data PJ berhasil disimpan');
     }
 
     /**
@@ -83,8 +108,16 @@ class PJController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        DB::delete('DELETE FROM pj WHERE id_pj = :id_pj', ['id_pj' => $id]);
+        return redirect()->route('pj.index')->with('success', 'Data PJ berhasil dihapus');
+    }
+
+    public function soft($id)
+    {
+        DB::update('UPDATE pj SET soft_delete = 1 WHERE id_pj = :id_pj', ['id_pj' => $id]);
+
+        return redirect()->route('pj.index')->with('success', 'Data pj berhasil dihapus');
     }
 }
