@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('Ruangan') }}
         </h2>
     </x-slot>
 
@@ -11,21 +11,15 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Barang</th>
-                            <th>Jumlah</th>
-                            <th>Ruangan</th>
-                            <th>Lantai</th>
-                            <th>PJ</th>
-                            <th>NIP PJ</th>
+                            <th>ID PJ</th>
+                            <th>Nama</th>
+                            <th>NIP</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($datas as $data)
                             <tr>
-                                <td>{{ $data->NAMA_BARANG }}</td>
-                                <td>{{ $data->JUMLAH }}</td>
-                                <td>{{ $data->NAMA_RUANGAN }}</td>
-                                <td>{{ $data->LANTAI }}</td>
+                                <td>{{ $data->ID_PJ }}</td>
                                 <td>{{ $data->NAMA_PJ }}</td>
                                 <td>{{ $data->NIP_PJ }}</td>
                             </tr>
