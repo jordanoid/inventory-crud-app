@@ -92,12 +92,15 @@ class RuanganController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'id_ruangan' => 'required',
             'nama_ruangan' => 'required',
             'lantai' => 'required',
             'id_pj' => 'required',
         ]);
-        DB::update('UPDATE barang SET nama_ruangan = :nama_ruangan, jumlah = :jumlah, id_pj = :id_pj WHERE id_ruangan = :id',
+        DB::update('UPDATE ruangan SET id_ruangan = :id_ruangan, nama_ruangan = :nama_ruangan, lantai = :lantai, id_pj = :id_pj WHERE id_ruangan = :id',
         [
+            'id' => $id,
+            'id_ruangan' => $request->id_ruangan,
             'nama_ruangan' => $request->nama_ruangan,
             'lantai' => $request->lantai,
             'id_pj' => $request->id_pj,
@@ -123,5 +126,11 @@ class RuanganController extends Controller
         DB::update('UPDATE ruangan SET soft_delete = 1 WHERE id_ruangan = :id_ruangan', ['id_ruangan' => $id]);
 
         return redirect()->route('ruangan.index')->with('success', 'Data ruangan berhasil dihapus');
+    }
+
+    public function restore()
+    {
+        DB::update('UPDATE ruangan SET soft_delete = 0 WHERE soft_delete = 1');
+        return redirect()->route('ruangan.index')->with('success', 'Data ruangan berhasil di-restore');
     }
 }

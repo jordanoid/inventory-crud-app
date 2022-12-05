@@ -89,12 +89,15 @@ class PJController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'id_pj' => 'required',
             'nama_pj' => 'required',
             'nip_pj' => 'required',
         ]);
 
-        DB::update('UPDATE pj SET nama_pj = :nama_pj, nip_pj = :nip_pj WHERE id_pj = :id',
+        DB::update('UPDATE pj SET id_pj = :id_pj, nama_pj = :nama_pj, nip_pj = :nip_pj WHERE id_pj = :id',
         [
+            'id' => $id,
+            'id_pj' => $request->id_pj,
             'nama_pj' => $request->nama_pj,
             'nip_pj' => $request->nip_pj,
         ]
@@ -119,5 +122,11 @@ class PJController extends Controller
         DB::update('UPDATE pj SET soft_delete = 1 WHERE id_pj = :id_pj', ['id_pj' => $id]);
 
         return redirect()->route('pj.index')->with('success', 'Data pj berhasil dihapus');
+    }
+
+    public function restore()
+    {
+        DB::update('UPDATE pj SET soft_delete = 0 WHERE soft_delete = 1');
+        return redirect()->route('pj.index')->with('success', 'Data PJ berhasil di-restore');
     }
 }

@@ -9,6 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="py-4 px-4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <a href="{{ route('barang.create')}}" class="btn btn-primary mb-3">Tambah Data</a>
+            <a href="{{ route('barang.restore')}}" class="btn btn-success mb-3">Restore Data</a>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -16,6 +17,7 @@
                             <th>Barang</th>
                             <th>Jumlah</th>
                             <th>ID Ruangan</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -30,10 +32,9 @@
                                 <button class="btn btn-danger btn-sm">
                                 <a href="{{ route('barang.delete', $data->ID_BARANG) }}">Delete</a>
                                 </button>
-                                <form class = "mt-1 form-inline" method="POST" action="{{ route('barang.soft', $data->ID_BARANG) }}">
-                                    @csrf
-                                        <button onclick="return confirm('{{ __('Are you sure you want to destroy?') }}')" type="submit" class="btn btn-warning">Soft Delete</button>
-                                </form>
+                                <button class="btn btn-warning btn-sm">
+                                    <a href="{{ route('barang.soft', $data->ID_BARANG) }}">Soft delete</a>
+                                </button>
                                 </td>
                             </tr>
                         @endforeach

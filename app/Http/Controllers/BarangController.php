@@ -126,4 +126,10 @@ class BarangController extends Controller
         DB::update('UPDATE barang SET soft_delete = 1 WHERE id_barang = :id_barang', ['id_barang' => $id]);
         return redirect()->route('barang.index')->with('success', 'Data barang berhasil dihapus');
     }
+
+    public function restore()
+    {
+        DB::update('UPDATE barang SET soft_delete = 0 WHERE soft_delete = 1');
+        return redirect()->route('barang.index')->with('success', 'Data barang berhasil di-restore');
+    }
 }

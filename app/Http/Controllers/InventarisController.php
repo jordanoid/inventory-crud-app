@@ -26,7 +26,8 @@ class InventarisController extends Controller
                                 nama_barang like '%{$search}%' or
                                 nama_ruangan like '%{$search}%' or
                                 nama_pj like '%{$search}%' or
-                                nip_pj like '%{$search}%';");
+                                nip_pj like '%{$search}%'
+                                ;");
             return view('dashboard')
                 ->with('datas', $datas);
             }
