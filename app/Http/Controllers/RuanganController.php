@@ -127,10 +127,4 @@ class RuanganController extends Controller
 
         return redirect()->route('ruangan.index')->with('success', 'Data ruangan berhasil dihapus');
     }
-
-    public function restore()
-    {
-        DB::update('UPDATE ruangan SET soft_delete = 0 WHERE soft_delete = 1');
-        return redirect()->route('ruangan.index')->with('success', 'Data ruangan berhasil di-restore');
-    }
 }

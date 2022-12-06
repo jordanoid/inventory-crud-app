@@ -9,7 +9,6 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="py-4 px-4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <a href="{{ route('ruangan.create')}}" class="btn btn-primary mb-3">Tambah Data</a>
-            <a href="{{ route('ruangan.restore')}}" class="btn btn-success mb-3">Restore Data</a>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -29,12 +28,36 @@
                                 <td>{{ $data->ID_PJ }}</td>
                                 <td>
                                     <a href="{{ route('ruangan.edit', $data->ID_RUANGAN)}}"  class="btn btn-success btn-sm">Edit</a>
-                                <button class="btn btn-danger btn-sm">
-                                <a href="{{ route('ruangan.delete', $data->ID_RUANGAN) }}">Delete</a>
+                                <!-- Button trigger modal -->
+                                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#hapusModal{{ $data->ID_RUANGAN }}">
+                                    Delete
                                 </button>
                                 <button class="btn btn-warning btn-sm">
                                     <a href="{{ route('ruangan.soft', $data->ID_RUANGAN) }}">Soft delete</a>
                                 </button>
+
+                                <!-- Modal Delete-->
+                                <div class="modal fade" id="hapusModal{{ $data->ID_RUANGAN}}" tabindex="-1" aria-labelledby="hapusModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="hapusModalLabel">Konfirmasi</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form method="POST" action="{{ route('ruangan.delete', $data->ID_RUANGAN) }}">
+                                                @csrf
+                                                @method("post")
+                                                <div class="modal-body">
+                                                    Apakah anda yakin ingin menghapus data ini?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary bg-secondary" data-bs-dismiss="modal">Tutup</button>
+                                                    <button  class="btn btn-primary">Ya</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                                 </td>                                
                             </tr>
                         @endforeach
