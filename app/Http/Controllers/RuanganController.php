@@ -29,7 +29,8 @@ class RuanganController extends Controller
      */
     public function create()
     {
-        return view('ruangan.add');
+        $datas2 = DB::select('select * from pj where soft_delete = 0');
+        return view('ruangan.add')->with('datas2', $datas2);
     }
 
     /**
@@ -78,8 +79,9 @@ class RuanganController extends Controller
     public function edit($id)
     {
         $data = DB::table('ruangan')->where('id_ruangan', $id)->first();
+        $datas2 = DB::select('select * from pj where soft_delete = 0');
 
-        return view('ruangan.edit')->with('data', $data);
+        return view('ruangan.edit')->with('data', $data)->with('datas2', $datas2);
     }
 
     /**
@@ -126,5 +128,11 @@ class RuanganController extends Controller
         DB::update('UPDATE ruangan SET soft_delete = 1 WHERE id_ruangan = :id_ruangan', ['id_ruangan' => $id]);
 
         return redirect()->route('ruangan.index')->with('success', 'Data ruangan berhasil dihapus');
+    }
+
+    public function restore()
+    {
+        DB::update('UPDATE ruangan SET soft_delete = 0 WHERE soft_delete = 1');
+        return redirect()->route('ruangan.index')->with('success', 'Data ruangan berhasil di-restore');
     }
 }

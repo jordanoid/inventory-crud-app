@@ -40,6 +40,7 @@ Route::group(['prefix' => 'barang', 'middleware' => 'auth'], function(){
     Route::post('update/{id}', [BarangController::class, 'update'])->name('barang.update');
     Route::post('delete/{id}', [BarangController::class, 'delete'])->name('barang.delete');
     Route::get('soft/{id}', [BarangController::class, 'soft'])->name('barang.soft');
+    Route::get('restore', [BarangController::class, 'restore'])->name('barang.restore');
 });
 
 Route::group(['prefix' => 'ruangan', 'middleware' => 'auth'], function(){
@@ -50,6 +51,7 @@ Route::group(['prefix' => 'ruangan', 'middleware' => 'auth'], function(){
     Route::post('update/{id}', [RuanganController::class, 'update'])->name('ruangan.update');
     Route::post('delete/{id}', [RuanganController::class, 'delete'])->name('ruangan.delete');
     Route::get('soft/{id}', [RuanganController::class, 'soft'])->name('ruangan.soft');
+    Route::get('restore', [RuanganController::class, 'restore'])->name('ruangan.restore');
 });
 
 Route::group(['prefix' => 'pj', 'middleware' => 'auth'], function(){
@@ -60,6 +62,7 @@ Route::group(['prefix' => 'pj', 'middleware' => 'auth'], function(){
     Route::post('update/{id}', [PJController::class, 'update'])->name('pj.update');
     Route::post('delete/{id}', [PJController::class, 'delete'])->name('pj.delete');
     Route::get('soft/{id}', [PJController::class, 'soft'])->name('pj.soft');
+    Route::get('restore', [PJController::class, 'restore'])->name('pj.restore');
 });
 
 

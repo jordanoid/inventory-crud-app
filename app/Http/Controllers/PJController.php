@@ -123,4 +123,10 @@ class PJController extends Controller
 
         return redirect()->route('pj.index')->with('success', 'Data pj berhasil dihapus');
     }
+
+    public function restore()
+    {
+        DB::update('UPDATE pj SET soft_delete = 0 WHERE soft_delete = 1');
+        return redirect()->route('pj.index')->with('success', 'Data PJ berhasil di-restore');
+    }
 }

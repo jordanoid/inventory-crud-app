@@ -23,7 +23,14 @@
 
                             <div class="mb-3">
                                 <label for="id_pj" class="form-label">ID PJ</label>
-                                <input type="text" class="form-control" name="id_pj" id="id_pj">
+                                <select name="id_pj" class="form-control">
+                                    <option>Select PJ</option><!--selected by default-->
+                                    @foreach($datas2 as $data2)
+                                        <option id="id_pj">
+                                            {{ $data2->ID_PJ}}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                                 
                                 <button type="submit" class="btn btn-primary float-end">Submit</button>

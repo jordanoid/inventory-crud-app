@@ -25,7 +25,7 @@
                             <label for="nip_pj" class="form-label">NIP PJ</label>
                             <input type="text" class="form-control" name="nip_pj" value ="{{$data->NIP_PJ}}" id="nip_pj">
                         </div>
-                        <button type="submit" class="btn btn-primary float-end ">Edit</button>                 
+                        <button type="submit" class="btn btn-outline-primary float-end ">Edit</button>                 
                       </form>
                 </div>
               </div>

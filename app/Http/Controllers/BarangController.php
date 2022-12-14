@@ -16,6 +16,7 @@ class BarangController extends Controller
     public function index()
     {
         $datas = DB::select('select * from barang where soft_delete = 0 ');
+        
 
         return view('barang.index')
             ->with('datas', $datas);
@@ -29,7 +30,8 @@ class BarangController extends Controller
     public function create()
     {
         //
-        return view('barang.add');
+        $datas2 = DB::select('select * from ruangan where soft_delete = 0');
+        return view('barang.add')->with('datas2', $datas2);
     }
 
     /**
@@ -78,8 +80,9 @@ class BarangController extends Controller
     public function edit($id)
     {
         $data = DB::table('barang')->where('id_barang', $id)->first();
+        $datas2 = DB::select('select * from ruangan where soft_delete = 0');
 
-        return view('barang.edit')->with('data', $data);
+        return view('barang.edit')->with('data', $data)->with('datas2', $datas2);
     }
 
     /**

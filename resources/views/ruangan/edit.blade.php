@@ -28,10 +28,16 @@
 
                                 <div class="mb-3">
                                     <label for="id_pj" class="form-label">ID PJ</label>
-                                    <input type="text" class="form-control" name="id_pj" value ="{{$data->ID_PJ}}" id="id_pj">
+                                    <select name="id_pj" class="form-control">
+                                        @foreach($datas2 as $data2)
+                                            <option id="id_pj">
+                                                {{ $data2->ID_PJ }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 
-                                <button type="submit" class="btn btn-primary float-end">Edit</button>
+                                <button type="submit" class="btn btn-outline-primary float-end">Edit</button>
                             </form>
                         </div>
                     </div>

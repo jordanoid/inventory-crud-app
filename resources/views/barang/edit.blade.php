@@ -27,11 +27,18 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="id_ruangan" class="form-label">ID ruangan</label>
-                                <input type="text" class="form-control" name="id_ruangan" value ="{{$data->ID_RUANGAN}}" id="id_ruangan">
+                                <label for="id_ruangan" class="form-label">ID Ruangan</label>
+                                <select name="id_ruangan" class="form-control">
+                                    <option>{{ $data->ID_RUANGAN }}</option><!--selected by default-->
+                                    @foreach($datas2 as $data2)
+                                        <option id="id_ruangan">
+                                            {{ $data2->ID_RUANGAN }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                             
-                            <button type="submit" class="btn btn-primary float-end">Edit</button>
+                            <button type="submit" class="btn btn-outline-primary float-end">Edit</button>
                             </form>
                         </div>
                     </div>

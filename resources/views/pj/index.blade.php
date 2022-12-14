@@ -9,6 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="py-4 px-4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <a href="{{ route('pj.create')}}" class="btn btn-primary mb-3">Tambah Data</a>
+            <a href="{{ route('pj.restore')}}" class="btn btn-primary mb-3">Restore</a>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
